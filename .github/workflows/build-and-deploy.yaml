@@ -83,6 +83,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           host: ${{ secrets.DO_HOST_IP }}
-          port: ${{ secrets.DO_PRIVATE_KEY }}
+          key: ${{ secrets.DO_PRIVATE_KEY }}
           envs: GIT_USERNAME, GITHUB_TOKEN
           script: "echo hello"
