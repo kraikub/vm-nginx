@@ -21,7 +21,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    environment: development
+    environment: nginx-production
     permissions:
       contents: read
       packages: write
@@ -70,21 +70,19 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: ./do-kraikub-services/docker/
+          context: ./do-kraikub-services
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       # Remote
-      - name: Deploy to development
+      - name: Deploy to Digital Ocean
         uses: appleboy/ssh-action@master
         env:
           GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USERNAME }}
-          password: ${{ secrets.VM_PASSWORD }}
-          port: ${{ secrets.VM_PORT }}
+          host: ${{ secrets.DO_HOST_IP }}
+          port: ${{ secrets.DO_PRIVATE_KEY }}
           envs: GIT_USERNAME, GITHUB_TOKEN
           script: "echo hello"
