@@ -86,4 +86,4 @@ jobs:
           username: ${{ secrets.DO_USERNAME }}
           password: ${{ secrets.DO_PASSWORD }}
           envs: GIT_USERNAME, GITHUB_TOKEN
-          script: echo "vm-nginx;production;${{ github.job }};$(date)" >> deployments.log
+          script: echo "${{ github.repository }};production;${{ github.job }};$(date)" >> deployments.log
