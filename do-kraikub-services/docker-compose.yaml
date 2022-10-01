@@ -1,0 +1,5 @@
+version: '3'
+services:
+  vm-nginx:
+    image: ghcr.io/kraikub/vm-nginx:latest
+    restart: always
