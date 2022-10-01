@@ -90,7 +90,7 @@ jobs:
             docker stop vm-nginx
             docker container prune -f 
             docker image prune -f
-            docker login -u ${{ secrets.GIT_USERNAME }} -p ${{ secrets.GITHUB_TOKEN }} ghcr.io
+            docker login -u $GIT_USERNAME -p $GITHUB_TOKEN ghcr.io
             docker pull ghcr.io/kraikub/vm-nginx:latest
             docker run --name vm-nginx --restart=always -v /server/ssl/kraikub.com:/server/ssl/kraikub.com -dit -p 443:443 -p 80:80 ghcr.io/kraikub/vm-nginx:latest
             echo "${{ github.repository }};production;${{ github.job }};$(date)" >> deployments.log
